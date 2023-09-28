@@ -7,10 +7,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
     private PlayerAttack attack;
+    private bool takeDemage;
 
     private float horizontalInput;
     private float verticalInput;
     [SerializeField] private float moveSpeed;
+
+    [SerializeField] private AudioClip[] hitVoice;
+    private AudioSource hitVoiceSouce;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +22,7 @@ public class PlayerController : MonoBehaviour
         rb= GetComponent<Rigidbody>();
         anim= GetComponent<Animator>();
         attack = GetComponent<PlayerAttack>();
+        hitVoiceSouce= GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -40,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerMove()
     {
-        if(!attack.attackMode)
+        if(!attack.attackMode && !takeDemage)
         {
             rb.velocity = new Vector3(horizontalInput, 0, verticalInput).normalized * moveSpeed * Time.deltaTime;
             if (horizontalInput != 0 || verticalInput != 0)
@@ -73,4 +78,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("EnemySword"))
+        {
+            StartCoroutine(TakeDemage());
+        }
+    }
+
+    IEnumerator TakeDemage()
+    {
+        anim.SetBool("run", false);
+        hitVoiceSouce.PlayOneShot(hitVoice[Random.Range(0, hitVoice.Length)]);
+        anim.SetTrigger("takeDemage");
+        takeDemage= true;
+
+        yield return new WaitForSeconds(1);
+        takeDemage= false;
+        StopCoroutine(TakeDemage());
+    }
 }
