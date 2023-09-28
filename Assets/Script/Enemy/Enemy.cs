@@ -11,6 +11,9 @@ public class Enemy : MonoBehaviour
     public bool readyState = true;
     private EnemyAttack enemyAttack;
 
+    [SerializeField] private AudioClip takeHit;
+    private AudioSource audioSource;
+
     [SerializeField] private float maxDistance;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int hp = 3;
@@ -25,6 +28,7 @@ public class Enemy : MonoBehaviour
         rb= GetComponent<Rigidbody>();
         anim= GetComponent<Animator>();
         enemyAttack = GetComponent<EnemyAttack>();
+        audioSource= GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player");
     }
 
@@ -78,6 +82,7 @@ public class Enemy : MonoBehaviour
         if(other.gameObject.CompareTag("PlayerSword"))
         {
             hp--;
+            audioSource.PlayOneShot(takeHit, 0.5f);
             StartCoroutine(ToRedyState(1));
             if(hp <= 0)
             {

@@ -19,7 +19,8 @@ public class PlayerAttack : MonoBehaviour
     public ParticleSystem backSwordStartFx;
 
     [SerializeField] private AudioClip[] attackVoice;
-    private AudioSource attackVoiceSource;
+    [SerializeField] private AudioClip attackSoundFx;
+    private AudioSource attackSource;
 
     //Extension
     private int oneTime;
@@ -29,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
     {
         rb= GetComponent<Rigidbody>();
         anim= GetComponent<Animator>();
-        attackVoiceSource= GetComponent<AudioSource>();
+        attackSource= GetComponent<AudioSource>();
         capsuleColliderSword = sword.GetComponent<CapsuleCollider>();
 
         capsuleColliderSword.enabled = false;
@@ -41,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
     {
         SwichAttackOrNot();
 
-        if(Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0)
         {
             numberAttack++;
             ExcuteAttack();
@@ -90,19 +91,19 @@ public class PlayerAttack : MonoBehaviour
     {
         if(numberAttack == 1)
         {
-            attackDuration = 1.4f;
+            attackDuration = 1.2f;
             anim.SetTrigger("attack");
             StartCoroutine(AttackTime(0.3f));// delay addforce
         }
         else if(numberAttack == 2)
         {
-            attackDuration = 1.3f;
+            attackDuration = 1.1f;
             anim.SetTrigger("attack2");
             StartCoroutine(AttackTime(0.3f));// delay addforce
         }
         else if(numberAttack == 3)
         {
-            attackDuration = 1.5f;
+            attackDuration = 1.15f;
             anim.SetTrigger("attack3");
             StartCoroutine(AttackTime(0.55f));// delay addforce
             numberAttack = 0;
@@ -112,7 +113,8 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator AttackTime(float delay)
     {
         yield return new WaitForSeconds(delay);
-        attackVoiceSource.PlayOneShot(attackVoice[Random.Range(0, attackVoice.Length)]);
+        attackSource.PlayOneShot(attackVoice[Random.Range(0, attackVoice.Length)]);
+        attackSource.PlayOneShot(attackSoundFx, 0.5f);
         rb.AddRelativeForce(Vector3.forward * 150, ForceMode.Impulse);
         capsuleColliderSword.enabled = true;
 
