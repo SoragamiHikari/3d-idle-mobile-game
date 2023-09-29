@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) > 50)
+        if(Vector3.Distance(transform.position, player.transform.position) > 40)
         {
             SpawnEnemy();
         }
@@ -26,8 +26,8 @@ public class Spawner : MonoBehaviour
 
     void ChangePosition()
     {
-        float x = Random.Range(-110, 110);
-        float z = Random.Range(-110, 110);
+        float x = Random.Range(-85, 85);
+        float z = Random.Range(-85, 85);
         transform.position = new Vector3(x, 2, z);
 
         Invoke("ChangePosition", 1);
