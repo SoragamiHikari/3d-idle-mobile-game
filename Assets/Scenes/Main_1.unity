@@ -188,7 +188,7 @@ Transform:
   m_GameObject: {fileID: 5729840}
   serializedVersion: 2
   m_LocalRotation: {x: 0.49008876, y: -0.00000007218477, z: 0.00000004058513, w: 0.8716726}
-  m_LocalPosition: {x: 0.8566078, y: 7.5529385, z: -3.7757285}
+  m_LocalPosition: {x: 0.8566078, y: 7.593939, z: -3.7757285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -971,7 +971,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.49008876, y: -0.00000007218477, z: 0.00000004058513, w: 0.8716726}
-  m_LocalPosition: {x: 0.8566078, y: 7.5529385, z: -3.7757285}
+  m_LocalPosition: {x: 0.8566078, y: 7.593939, z: -3.7757285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2164,6 +2164,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2034426805182784304, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
+        type: 3}
+      propertyPath: detectionCollider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969613705369578999, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.51
+      objectReference: {fileID: 0}
     - target: {fileID: 5468595826229094019, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
         type: 3}
       propertyPath: joystick
@@ -2187,7 +2197,7 @@ PrefabInstance:
     - target: {fileID: 8188975393121395060, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.991
+      value: -0.95
       objectReference: {fileID: 0}
     - target: {fileID: 8188975393121395060, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
         type: 3}
@@ -2235,7 +2245,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4287862196591320221, guid: 4b8dd17ee503a68449ef60fa3fab64ac, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b8dd17ee503a68449ef60fa3fab64ac, type: 3}

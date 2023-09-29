@@ -23,7 +23,6 @@ public class PlayerAttack : MonoBehaviour
     private AudioSource attackSource;
 
     //Extension
-    private int oneTime;
     private float delaySwordTransform = 2;
 
     // Start is called before the first frame update
