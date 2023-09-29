@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     private GameObject player;
     private Animator anim;
 
-    public bool readyState = true;
+    public bool readyState = false;
     private EnemyAttack enemyAttack;
 
     [SerializeField] private AudioClip takeHit;

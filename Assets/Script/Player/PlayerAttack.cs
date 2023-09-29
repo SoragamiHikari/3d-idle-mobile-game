@@ -24,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
 
     //Extension
     private int oneTime;
+    private float delaySwordTransform = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,7 @@ public class PlayerAttack : MonoBehaviour
     {
         SwichAttackOrNot();
 
-        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0)
+        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0.2f)
         {
             numberAttack++;
             ExcuteAttack();
@@ -51,7 +52,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void TouchAttackInptu()
     {
-        if(attackDuration <= 0)
+        if(attackDuration <= 0.2f)
         {
             numberAttack++;
             ExcuteAttack();
@@ -60,30 +61,39 @@ public class PlayerAttack : MonoBehaviour
 
     void SwichAttackOrNot()
     {
-        if (attackDuration > -0.25f)
+        if (attackDuration > -0.2f)
         {
             attackDuration -= Time.deltaTime;
-            if (oneTime == 0)
+
+            attackMode = true;
+            if(backSword.activeSelf == true && sword.activeSelf == false)
             {
+
                 swordStartFx.Play();
                 backSwordStartFx.Play();
-                oneTime = 1;
+                backSword.SetActive(false);
+                sword.SetActive(true);
             }
-            attackMode = true;
-            backSword.SetActive(false);
-            sword.SetActive(true);
+            delaySwordTransform = 2;
         }
         else
         {
-            sword.SetActive(false);
-            if (oneTime == 1)
-            {
-                swordStartFx.Play();
-                backSwordStartFx.Play();
-                oneTime = 0;
-            }
-            backSword.SetActive(true);
             attackMode = false;
+            if (delaySwordTransform > 0)
+            {
+                delaySwordTransform -= Time.deltaTime;
+            }
+            else
+            {
+                if(sword.activeSelf== true && backSword.activeSelf == false)
+                {
+                    swordStartFx.Play();
+                    backSwordStartFx.Play();
+                    sword.SetActive(false);
+                    backSword.SetActive(true);
+                }
+                
+            }
         }
     }
 
@@ -115,7 +125,7 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(delay);
         attackSource.PlayOneShot(attackVoice[Random.Range(0, attackVoice.Length)]);
         attackSource.PlayOneShot(attackSoundFx, 0.5f);
-        rb.AddRelativeForce(Vector3.forward * 150, ForceMode.Impulse);
+        rb.AddRelativeForce(Vector3.forward * 180, ForceMode.Impulse);
         capsuleColliderSword.enabled = true;
 
         yield return new WaitForSeconds(0.4f);// delay false collider sword
