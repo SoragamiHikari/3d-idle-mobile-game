@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxDistance;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int hp = 3;
+    public bool isLose = false;
 
     //Extension
     private int oneTime = 0;
@@ -40,7 +41,10 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveBehavier();
+        if(!isLose)
+        {
+            MoveBehavier();
+        }
     }
 
     void MoveBehavier()
@@ -79,14 +83,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("PlayerSword"))
+        if (other.gameObject.CompareTag("PlayerSword") && !isLose)
         {
             hp--;
             audioSource.PlayOneShot(takeHit, 0.5f);
             StartCoroutine(ToRedyState(1));
-            if(hp <= 0)
+            if (hp <= 0)
             {
-                Destroy(gameObject);
+                StartCoroutine(BeforeDestroy());
             }
         }
     }
@@ -100,5 +104,16 @@ public class Enemy : MonoBehaviour
         readyState=true;
         enemyAttack.attakDelay = 2;
         StopCoroutine(ToRedyState(timeTakeHit));
+    }
+
+    IEnumerator BeforeDestroy()
+    {
+        isLose = true;
+        gameObject.tag = "Untagged";
+        gameObject.layer = 0;
+        anim.SetTrigger("lose");
+        player.GetComponent<PlayerController>().target= null;
+        yield return new WaitForSeconds(3f);
+        Destroy(gameObject);
     }
 }

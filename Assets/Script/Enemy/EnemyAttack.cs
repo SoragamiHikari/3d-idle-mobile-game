@@ -25,7 +25,7 @@ public class EnemyAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyBe.readyState)
+        if (enemyBe.readyState && !enemyBe.isLose)
         {
             attakDelay -= Time.deltaTime;
             if(attakDelay <= 0)

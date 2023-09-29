@@ -746,7 +746,6 @@ GameObject:
   - component: {fileID: 927160108}
   - component: {fileID: 927160107}
   - component: {fileID: 927160106}
-  - component: {fileID: 927160111}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -868,22 +867,6 @@ Transform:
   - {fileID: 1101949404}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &927160111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927160105}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d20731e710ff8654994a4a93fa0d84b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  speed: 4
-  stopDistance: 1
-  targetTag: Enemy
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2166,8 +2149,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2034426805182784304, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
         type: 3}
+      propertyPath: radiusGizmo
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034426805182784304, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
+        type: 3}
       propertyPath: detectionCollider
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034426805182784304, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
+        type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 4969613705369578999, guid: 4b8dd17ee503a68449ef60fa3fab64ac,
         type: 3}

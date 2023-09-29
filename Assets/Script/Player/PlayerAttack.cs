@@ -22,6 +22,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private AudioClip attackSoundFx;
     private AudioSource attackSource;
 
+    public float radiusGizmo;
+    public LayerMask enemyLayer;
+
+    private PlayerController player;
+
     //Extension
     private float delaySwordTransform = 2;
 
@@ -32,6 +37,7 @@ public class PlayerAttack : MonoBehaviour
         anim= GetComponent<Animator>();
         attackSource= GetComponent<AudioSource>();
         capsuleColliderSword = sword.GetComponent<CapsuleCollider>();
+        player= GetComponent<PlayerController>();
 
         capsuleColliderSword.enabled = false;
         sword.SetActive(false);
@@ -42,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
     {
         SwichAttackOrNot();
 
-        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0.2f)
+        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0.2f && !player.takeDemage)
         {
             numberAttack++;
             ExcuteAttack();
@@ -51,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
 
     public void TouchAttackInptu()
     {
-        if(attackDuration <= 0.2f)
+        if(attackDuration <= 0.2f && !player.takeDemage)
         {
             numberAttack++;
             ExcuteAttack();
@@ -121,14 +127,53 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator AttackTime(float delay)
     {
+        transform.rotation = Quaternion.Euler(0f, EnemyInGizmoRadius(), 0f);
         yield return new WaitForSeconds(delay);
-        attackSource.PlayOneShot(attackVoice[Random.Range(0, attackVoice.Length)]);
-        attackSource.PlayOneShot(attackSoundFx, 0.5f);
-        rb.AddRelativeForce(Vector3.forward * 180, ForceMode.Impulse);
-        capsuleColliderSword.enabled = true;
+        if(!player.takeDemage)
+        {
+            attackSource.PlayOneShot(attackVoice[Random.Range(0, attackVoice.Length)]);
+            attackSource.PlayOneShot(attackSoundFx, 0.5f);
+            rb.AddRelativeForce(Vector3.forward * 200, ForceMode.Impulse);
+            capsuleColliderSword.enabled = true;
+        }
 
         yield return new WaitForSeconds(0.4f);// delay false collider sword
         capsuleColliderSword.enabled = false;
         StopCoroutine(AttackTime(delay));
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, radiusGizmo);
+    }
+
+    float EnemyInGizmoRadius()
+    {
+        float minDistance = Mathf.Infinity;
+        float yPlayerRotation;
+        Collider closestEnemy = null;
+
+        Collider[] enemys = Physics.OverlapSphere(transform.position, radiusGizmo, enemyLayer);
+        foreach(Collider enemy in enemys)
+        {
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if(distance < minDistance)
+            {
+                minDistance = distance;
+                closestEnemy = enemy;
+            }
+        }
+
+        if(closestEnemy == null)
+        {
+            yPlayerRotation = transform.rotation.eulerAngles.y;
+            return yPlayerRotation;
+        }
+        else
+        {
+            Vector3 direction = closestEnemy.transform.position - transform.position;
+            yPlayerRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+            return yPlayerRotation;
+        }
     }
 }

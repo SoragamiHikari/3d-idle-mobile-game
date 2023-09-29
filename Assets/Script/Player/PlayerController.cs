@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Animator anim;
     private PlayerAttack attack;
-    private bool takeDemage;
+    public bool takeDemage;
 
     public Text switchButtonText;
     public bool mobileInput;
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         anim.SetTrigger("takeDemage");
         takeDemage= true;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.3f);
         takeDemage= false;
         StopCoroutine(TakeDemage());
     }
