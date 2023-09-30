@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
     {
         SwichAttackOrNot();
 
-        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0.2f && !player.takeDemage)
+        if (Input.GetKeyDown(KeyCode.Space) && attackDuration <= 0.2f && !player.takeDemage && !player.autoMove)
         {
             numberAttack++;
             ExcuteAttack();
@@ -57,7 +57,16 @@ public class PlayerAttack : MonoBehaviour
 
     public void TouchAttackInptu()
     {
-        if(attackDuration <= 0.2f && !player.takeDemage)
+        if(attackDuration <= 0.2f && !player.takeDemage && !player.autoMove)
+        {
+            numberAttack++;
+            ExcuteAttack();
+        }
+    }
+
+    public void AutoMoveAttack()
+    {
+        if (attackDuration <= 0.2f && !player.takeDemage)
         {
             numberAttack++;
             ExcuteAttack();

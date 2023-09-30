@@ -464,7 +464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400326, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.95
+      value: -0.908
       objectReference: {fileID: 0}
     - target: {fileID: 400326, guid: 8f0565f23a2b58541a475bd3c1393052, type: 3}
       propertyPath: m_LocalPosition.z
@@ -674,7 +674,7 @@ Rigidbody:
   m_GameObject: {fileID: 8188975393121631572}
   serializedVersion: 4
   m_Mass: 40
-  m_Drag: 0.5
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -725,10 +725,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422fe8e9f44ca744cbc0af90cab6f6b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  takeDemage: 0
   switchButtonText: {fileID: 0}
   mobileInput: 0
   joystick: {fileID: 0}
   moveSpeed: 300
+  voiceSwitchToAuto: {fileID: 8300000, guid: 2de82574ce2bbd04da6b2a69be6c7c8d, type: 3}
+  voiceSwitchToManual: {fileID: 8300000, guid: 81a51a1a144309c4b8695b4e1141d56b, type: 3}
   hitVoice:
   - {fileID: 8300000, guid: 66bea2fdedfadd545b74f9c18c650fb7, type: 3}
   - {fileID: 8300000, guid: 105bae17d8b479a408e7534713b5c7eb, type: 3}

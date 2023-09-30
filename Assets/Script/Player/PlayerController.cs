@@ -19,9 +19,11 @@ public class PlayerController : MonoBehaviour
     private float verticalJoystickInput;
     [SerializeField] private float moveSpeed;
 
+    [SerializeField] private AudioClip voiceSwitchToAuto;
+    [SerializeField] private AudioClip voiceSwitchToManual;
     [SerializeField] private AudioClip[] hitVoice;
     [SerializeField] private AudioClip takeHit;
-    private AudioSource hitVoiceSouce;
+    private AudioSource playerVoiceSouce;
 
     public GameObject target;
     public bool autoMove;
@@ -33,7 +35,9 @@ public class PlayerController : MonoBehaviour
         rb= GetComponent<Rigidbody>();
         anim= GetComponent<Animator>();
         attack = GetComponent<PlayerAttack>();
-        hitVoiceSouce= GetComponent<AudioSource>();
+        playerVoiceSouce= GetComponent<AudioSource>();
+        mobileInput = true;
+        autoMove = true;
     }
 
     // Update is called once per frame
@@ -163,11 +167,13 @@ public class PlayerController : MonoBehaviour
         {
             autoMove = false;
             autoMoveText.text = "Manual";
+            playerVoiceSouce.PlayOneShot(voiceSwitchToManual);
         }
         else
         {
             autoMove = true;
             autoMoveText.text = "Auto Move";
+            playerVoiceSouce.PlayOneShot(voiceSwitchToAuto);
         }
     }
 
@@ -200,7 +206,7 @@ public class PlayerController : MonoBehaviour
                     else
                     {
                         anim.SetBool("run", false);
-                        attack.TouchAttackInptu();
+                        attack.AutoMoveAttack();
                     }
                     
                 }
@@ -251,8 +257,8 @@ public class PlayerController : MonoBehaviour
     IEnumerator TakeDemage()
     {
         anim.SetBool("run", false);
-        hitVoiceSouce.PlayOneShot(hitVoice[Random.Range(0, hitVoice.Length)]);
-        hitVoiceSouce.PlayOneShot(takeHit);
+        playerVoiceSouce.PlayOneShot(hitVoice[Random.Range(0, hitVoice.Length)]);
+        playerVoiceSouce.PlayOneShot(takeHit);
         anim.SetTrigger("takeDemage");
         takeDemage= true;
 

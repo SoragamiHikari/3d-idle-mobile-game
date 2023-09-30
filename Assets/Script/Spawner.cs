@@ -16,7 +16,7 @@ public class Spawner : MonoBehaviour
         mainManager = GetComponent<MainManager>();
 
         InvokeRepeating("ChangePositionAndCountEnemy", 1, 1);
-        Invoke("SpawnEnemy", 3);
+        Invoke("SpawnEnemy", 0.1f);
     }
 
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) > 40 && enemyInArena.Length < 15)
+        if(Vector3.Distance(transform.position, player.transform.position) > 40 && enemyInArena.Length < 20)
         {
             Instantiate(EnemyPrefabs[0], transform.position, Quaternion.identity);
         }
