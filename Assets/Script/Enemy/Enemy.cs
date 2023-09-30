@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour
         if(!enemyAttack.attaking)
         {
             transform.rotation = Quaternion.Euler(0, enemyRotation, 0);
-            if (Vector3.Distance(transform.position, player.transform.position) > 2 && moveDelay <= 0)
+            if (Vector3.Distance(transform.position, player.transform.position) > 2 && Vector3.Distance(transform.position, player.transform.position) < 40 && moveDelay <= 0)
             {
                 rb.velocity = locationDirection * moveSpeed * Time.deltaTime;
                 anim.SetBool("run", true);
@@ -111,8 +111,11 @@ public class Enemy : MonoBehaviour
         isLose = true;
         gameObject.tag = "Untagged";
         gameObject.layer = 0;
+        Destroy(rb);
+        GetComponent<BoxCollider>().enabled = false;
         anim.SetTrigger("lose");
         player.GetComponent<PlayerController>().target= null;
+
         yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }

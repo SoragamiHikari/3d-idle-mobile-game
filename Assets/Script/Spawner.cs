@@ -4,45 +4,42 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject EnemyPrefabs;
+    [SerializeField] private GameObject[] EnemyPrefabs;
+    public GameObject[] enemyInArena;
     private GameObject player;
-    private float spawnInterval = 3;
+    private MainManager mainManager;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        Invoke("ChangePosition", 1);
+        mainManager = GetComponent<MainManager>();
+
+        InvokeRepeating("ChangePositionAndCountEnemy", 1, 1);
+        Invoke("SpawnEnemy", 3);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) > 40)
-        {
-            SpawnEnemy();
-        }
+        
     }
 
-    void ChangePosition()
+    void ChangePositionAndCountEnemy()
     {
         float x = Random.Range(-85, 85);
         float z = Random.Range(-85, 85);
         transform.position = new Vector3(x, 2, z);
 
-        Invoke("ChangePosition", 1);
+        enemyInArena = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
     void SpawnEnemy()
     {
-        if(spawnInterval > 0)
+        if(Vector3.Distance(transform.position, player.transform.position) > 40 && enemyInArena.Length < 15)
         {
-            spawnInterval -= Time.deltaTime;
+            Instantiate(EnemyPrefabs[0], transform.position, Quaternion.identity);
         }
-        else
-        {
-            Instantiate(EnemyPrefabs, transform.position, Quaternion.identity);
-            spawnInterval = 3;
-        }
+        Invoke("SpawnEnemy", 3);
     }
 }
