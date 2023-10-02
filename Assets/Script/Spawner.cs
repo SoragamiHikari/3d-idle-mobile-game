@@ -27,8 +27,8 @@ public class Spawner : MonoBehaviour
 
     void ChangePositionAndCountEnemy()
     {
-        float x = Random.Range(-85, 85);
-        float z = Random.Range(-85, 85);
+        float x = Random.Range(-41, 41);
+        float z = Random.Range(-41, 41);
         transform.position = new Vector3(x, 2, z);
 
         enemyInArena = GameObject.FindGameObjectsWithTag("Enemy");
@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) > 40 && enemyInArena.Length < 20)
+        if(Vector3.Distance(transform.position, player.transform.position) > 25 && enemyInArena.Length < 15)
         {
             Instantiate(EnemyPrefabs[0], transform.position, Quaternion.identity);
         }
