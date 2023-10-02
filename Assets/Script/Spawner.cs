@@ -36,10 +36,10 @@ public class Spawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        if(Vector3.Distance(transform.position, player.transform.position) > 25 && enemyInArena.Length < 15)
+        if(Vector3.Distance(transform.position, player.transform.position) > 25 && enemyInArena.Length < 20)
         {
             Instantiate(EnemyPrefabs[0], transform.position, Quaternion.identity);
         }
-        Invoke("SpawnEnemy", 3);
+        Invoke("SpawnEnemy", 2);
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3364213191016600219}
   - component: {fileID: 7559865627502241258}
-  - component: {fileID: 4501605976864414093}
+  - component: {fileID: 5876290763136405542}
   m_Layer: 0
   m_Name: PT_Fruit_Tree_01_dead
   m_TagString: Untagged
@@ -63,8 +63,8 @@ LODGroup:
     renderers:
     - renderer: {fileID: 8582300408851693431}
   m_Enabled: 1
---- !u!64 &4501605976864414093
-MeshCollider:
+--- !u!136 &5876290763136405542
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -81,10 +81,11 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -141427767444353596, guid: ddcbcdd7a43212c4d86fe33f77dac074, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.54
+  m_Height: 2.58
+  m_Direction: 1
+  m_Center: {x: -0.09, y: 1.05, z: -0.1}
 --- !u!1 &2913374063265039696
 GameObject:
   m_ObjectHideFlags: 0

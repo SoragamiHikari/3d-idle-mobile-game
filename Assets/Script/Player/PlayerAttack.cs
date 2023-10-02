@@ -146,7 +146,7 @@ public class PlayerAttack : MonoBehaviour
             capsuleColliderSword.enabled = true;
         }
 
-        yield return new WaitForSeconds(0.4f);// delay false collider sword
+        yield return new WaitForSeconds(0.5f);// delay false collider sword
         capsuleColliderSword.enabled = false;
         StopCoroutine(AttackTime(delay));
     }
