@@ -7,13 +7,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject[] EnemyPrefabs;
     public GameObject[] enemyInArena;
     private GameObject player;
-    private MainManager mainManager;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        mainManager = GetComponent<MainManager>();
 
         InvokeRepeating("ChangePositionAndCountEnemy", 1, 1);
         Invoke("SpawnEnemy", 0.1f);
