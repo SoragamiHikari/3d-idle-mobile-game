@@ -16,8 +16,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private float maxDistance;
     [SerializeField] private float moveSpeed;
-    [SerializeField] private int hp = 3;
     public bool isLose = false;
+
+    //status
+    [SerializeField] private int hp = 50;
+    [SerializeField] private int attackPower = 5;
+    [SerializeField] private int def = 5;
+
 
     //Extension
     private int oneTime = 0;
@@ -26,17 +31,15 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hp= 50;
+        attackPower= 5;
+        def = 5;
+
         rb= GetComponent<Rigidbody>();
         anim= GetComponent<Animator>();
         enemyAttack = GetComponent<EnemyAttack>();
         audioSource= GetComponent<AudioSource>();
         player = GameObject.FindWithTag("Player");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void FixedUpdate()
@@ -85,13 +88,15 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PlayerSword") && !isLose)
         {
-            hp--;
+            int demage = PlayerStatus.totalAttack - def;
+            hp -= demage;
             audioSource.PlayOneShot(takeHit, 0.5f);
             StartCoroutine(ToRedyState(1));
             if (hp <= 0)
             {
                 StartCoroutine(BeforeDestroy());
             }
+            Debug.Log(demage);
         }
     }
 
